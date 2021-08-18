@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: dev
+      MYSQL_USER: dev
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./my.cnf:/etc/mysql/my.cnf
+      - /home/barreto/dev/data-db/:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
